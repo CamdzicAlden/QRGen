@@ -17,6 +17,10 @@ export const generateQR = async (
       errorCorrectionLevel: "H",
       margin: 2,
       width: 300,
+      color: {
+        dark: "#4356FD",
+        light: "#FFFFFF",
+      },
     });
 
     return {
@@ -30,6 +34,10 @@ export const generateQR = async (
     errorCorrectionLevel: "H",
     margin: 2,
     width: 300,
+    color: {
+      dark: "#4356FD",
+      light: "#FFFFFF",
+    },
   });
 
   return {

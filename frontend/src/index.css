@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "./assets/fonts/fonts.css";
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  background-color: var(--color-background);
+}
+
+@theme {
+  --color-background: #f7fafe;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-blue: #4356fd;
+
+  --font-jakartaSemibold: "JakartaSemibold", sans-serif;
+  --font-jakartaBold: "JakartaBold", sans-serif;
+}

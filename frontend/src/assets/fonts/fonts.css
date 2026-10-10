@@ -1,0 +1,13 @@
+/* Semibold */
+@font-face {
+  font-family: "JakartaSemibold";
+  src: url("./PlusJakartaSans-Semibold.ttf") format("truetype");
+  font-style: normal;
+}
+
+/* Bold */
+@font-face {
+  font-family: "JakartaBold";
+  src: url("./PlusJakartaSans-Bold.ttf") format("truetype");
+  font-style: normal;
+}
