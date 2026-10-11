@@ -11,6 +11,7 @@ import phoneBlue from "../assets/icons/phoneBlue.svg";
 import sms from "../assets/icons/sms.svg";
 import smsBlue from "../assets/icons/smsBlue.svg";
 import QR from "../assets/icons/QR.svg";
+import password from "../assets/icons/password.svg";
 
 import { useState } from "react";
 import DropdownCard from "./DropdownCard";
@@ -25,6 +26,77 @@ const options = {
 };
 
 type OptionType = keyof typeof options;
+
+type InputField = {
+  name: string;
+  placeholder: string;
+  icon: string;
+  type?: "text" | "email" | "tel" | "password";
+};
+
+const inputFields: Record<OptionType, InputField[]> = {
+  URL: [
+    {
+      name: "url",
+      placeholder: "https://www.example.com",
+      icon: url,
+    },
+  ],
+
+  Text: [
+    {
+      name: "text",
+      placeholder: "Enter your text",
+      icon: text,
+    },
+  ],
+
+  WiFi: [
+    {
+      name: "ssid",
+      placeholder: "Network name",
+      icon: wifi,
+    },
+    {
+      name: "password",
+      placeholder: "Password",
+      icon: password,
+      type: "password",
+    },
+  ],
+
+  Email: [
+    {
+      name: "email",
+      placeholder: "example@gmail.com",
+      icon: email,
+      type: "email",
+    },
+  ],
+
+  Phone: [
+    {
+      name: "phone",
+      placeholder: "+387 61 123 456",
+      icon: phone,
+      type: "tel",
+    },
+  ],
+
+  SMS: [
+    {
+      name: "phone",
+      placeholder: "Phone number",
+      icon: phone,
+      type: "tel",
+    },
+    {
+      name: "message",
+      placeholder: "Message",
+      icon: sms,
+    },
+  ],
+};
 
 function OptionsCard() {
   const [selectedOption, setSelectedOption] = useState<OptionType>("URL");
@@ -57,18 +129,26 @@ function OptionsCard() {
       <div className="w-full flex flex-col items-start text-sm font-jakartaBold gap-2">
         <p>Enter your {selectedOption}</p>
 
-        <div className="w-full flex justify-start items-center px-4 py-2.5 border border-black/20 rounded-lg gap-4">
-          <img
-            src={options[selectedOption].icon}
-            alt={selectedOption}
-            className="h-4 opacity-50"
-          />
+        <div className="w-full flex items-center gap-4">
+          {inputFields[selectedOption].map((field) => (
+            <div
+              key={field.name}
+              className="flex-1 min-w-0 flex justify-start items-center px-4 py-2.5 border border-black/20 rounded-lg gap-4"
+            >
+              <img
+                src={field.icon}
+                alt={""}
+                className="h-4 opacity-50 shrink-0"
+              />
 
-          <input
-            type="text"
-            placeholder="https://www.example.com"
-            className="font-jakartaSemibold border-none outline-none flex-1 text-black/80"
-          />
+              <input
+                type={field.type ?? "text"}
+                name={field.name}
+                placeholder={field.placeholder}
+                className="font-jakartaSemibold border-none outline-none flex-1 min-w-0 text-black/80"
+              />
+            </div>
+          ))}
         </div>
       </div>
 
