@@ -28,57 +28,92 @@ type OptionType = keyof typeof options;
 
 function OptionsCard() {
   const [selectedOption, setSelectedOption] = useState<OptionType>("URL");
+  const [qrColor, setQrColor] = useState("#2563eb");
+  const [backgroundColor, setBackgroundColor] = useState("#ffffff");
+  const [size, setSize] = useState("300x300");
+  const [format, setFormat] = useState("SVG");
 
   return (
-    <div className="w-full h-full flex flex-col items-center gap-6 bg-white rounded-xl border-0.5 border-black shadow-[0_2px_4px_rgba(0,0,0,0.25)] py-6 px-10">
-      <div className="w-full flex justify-between items-center">
+    <div className="w-full h-full flex flex-col items-center gap-6 bg-white rounded-3xl border-0.5 border-black shadow-[0_2px_4px_rgba(0,0,0,0.25)] py-6 px-10">
+      {/* Options container */}
+      <div className="w-full flex justify-start items-center gap-4">
         {Object.entries(options).map(([option, { icon, iconSelected }]) => (
           <div
             key={option}
-            className={`flex justify-center items-center gap-1 px-4 py-2 rounded-md cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.1)] text-sm font-jakartaSemibold ${selectedOption === option ? "bg-blue/10 text-blue/90" : "bg-white/80 text-black/90"}`}
+            className={`flex justify-center items-center gap-2 px-4 py-2 rounded-md cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.1)] text-sm font-jakartaSemibold ${selectedOption === option ? "bg-blue/10 text-blue/80" : "bg-white/80 text-black/80"}`}
             onClick={() => setSelectedOption(option as OptionType)}
           >
             <img
               src={selectedOption === option ? iconSelected : icon}
               alt={option}
-              className="w-4"
+              className="h-3.5"
             />
             <span>{option}</span>
           </div>
         ))}
       </div>
 
+      {/* Input container */}
       <div className="w-full flex flex-col items-start text-sm font-jakartaBold gap-2">
         <p>Enter your {selectedOption}</p>
 
-        <div className="w-full flex justify-start items-center px-4 py-2.5 border border-black/20 rounded-md gap-4">
+        <div className="w-full flex justify-start items-center px-4 py-2.5 border border-black/20 rounded-lg gap-4">
           <img
             src={options[selectedOption].icon}
             alt={selectedOption}
-            className="w-5 opacity-50"
+            className="h-4 opacity-50"
           />
 
           <input
             type="text"
             placeholder="https://www.example.com"
-            className="font-jakartaSemibold border-none outline-none flex-1"
+            className="font-jakartaSemibold border-none outline-none flex-1 text-black/80"
           />
         </div>
       </div>
 
+      {/* Customize container */}
       <div className="w-full flex flex-col items-start text-sm font-jakartaBold gap-2">
         <p>Customize</p>
 
-        <div className="w-full flex justify-between items-center gap-4">
-          <DropdownCard title="Color" />
-          <DropdownCard title="Background" />
-          <DropdownCard title="Size" />
-          <DropdownCard title="Format" />
+        <div className="w-full h-full flex justify-between items-center gap-4">
+          <DropdownCard
+            title="Color"
+            type="color"
+            defaultValue="#2563eb"
+            value={qrColor}
+            onChange={setQrColor}
+          />
+
+          <DropdownCard
+            title="Background"
+            type="color"
+            defaultValue="#ffffff"
+            value={backgroundColor}
+            onChange={setBackgroundColor}
+          />
+
+          <DropdownCard
+            title="Size"
+            type="select"
+            value={size}
+            onChange={setSize}
+            options={["150x150", "300x300", "500x500", "800x800"]}
+          />
+
+          <DropdownCard
+            title="Format"
+            type="select"
+            value={format}
+            onChange={setFormat}
+            options={["SVG", "PNG"]}
+          />
         </div>
       </div>
 
-      <div className="w-full flex justify-center items-center bg-blue text-white/90 font-jakartaBold text-base gap-1 py-2 rounded-md cursor-pointer">
-        <img src={QR} alt="QR" className="h-6" />
+      {/* Button container */}
+      <div className="w-full flex justify-center items-center bg-blue text-white/90 font-jakartaBold text-base gap-1 py-2 rounded-lg cursor-pointer hover:bg-blue/95 transition-all ease-in-out duration-200">
+        <img src={QR} alt="QR" className="h-5" />
         <p>Generate QR Code</p>
       </div>
     </div>

@@ -18,3 +18,32 @@ body,
   --font-jakartaSemibold: "JakartaSemibold", sans-serif;
   --font-jakartaBold: "JakartaBold", sans-serif;
 }
+
+.color-picker {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  background: transparent;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Chrome, Edge, and other WebKit/Blink browsers */
+.color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+}
+
+/* Firefox */
+.color-picker::-moz-color-swatch {
+  border: none;
+  border-radius: 50%;
+}

@@ -13,7 +13,7 @@ function AboutText() {
         QR codes in <span className="text-blue/90">seconds</span>
       </p>
 
-      <p className="text-md text-black/70 font-jakartaSemibold">
+      <p className="text-sm text-black/70 font-jakartaSemibold">
         Create QR codes for websites, text, Wi-Fi, emails and more.
         <br />
         Fast, easy and completely free.

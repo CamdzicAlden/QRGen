@@ -1,14 +1,87 @@
+import { useState } from "react";
 import dropdown from "../assets/icons/dropdown.svg";
 
-function DropdownCard({ title }: { title: string }) {
+type DropdownCardProps = {
+  title: string;
+  type: "color" | "select";
+  value: string;
+  onChange: (value: string) => void;
+  options?: string[];
+  defaultValue?: string;
+};
+
+function DropdownCard({
+  title,
+  type,
+  value,
+  onChange,
+  options = [],
+  defaultValue,
+}: DropdownCardProps) {
+  const validateColor = (color: string): void => {
+    const isValid = /^#([0-9A-F]{3}){1,2}$/i.test(color);
+
+    onChange(isValid ? color : defaultValue || "#000000");
+  };
+
+  const [isFocused, setIsFocused] = useState(false);
+
   return (
-    <div className="bg-white border border-black/10 rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] py-2 px-4 flex flex-col items-start gap-2 flex-1">
+    <div className="bg-white border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] py-2 px-4 flex flex-col items-start gap-2 flex-1 min-w-0 h-full rounded-2xl">
+      {/* Card title */}
       <p className="text-sm font-jakartaBold text-black/50">{title}</p>
 
-      <div className="w-full flex justify-between items-center">
-        <div className="w-2 h-2 rounded-[50%] bg-blue"></div>
-        <img src={dropdown} alt="D" />
-      </div>
+      {/* Color picker */}
+      {type === "color" && (
+        <div className="w-full flex justify-start items-center gap-2">
+          <input
+            type="color"
+            value={value}
+            onChange={(event) => onChange(event.target.value)}
+            aria-label={title}
+            className="color-picker w-auto h-auto shrink-0 cursor-pointer"
+          />
+
+          <input
+            type="text"
+            value={value.toUpperCase()}
+            onChange={(event) => onChange(event.target.value)}
+            onBlur={(event) => validateColor(event.target.value)}
+            aria-label={title}
+            className="text-xs text-black/50 w-full border-none outline-none p-0 bg-transparent"
+            maxLength={7}
+          />
+        </div>
+      )}
+
+      {/* Select dropdown */}
+      {type === "select" && (
+        <div className="relative w-full flex items-center">
+          <select
+            value={value}
+            onChange={(event) => onChange(event.target.value)}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            aria-label={title}
+            className="w-full appearance-none bg-transparent pr-6 outline-none cursor-pointer text-sm font-jakartaSemibold text-black/80"
+          >
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+
+          <img
+            src={dropdown}
+            alt=""
+            aria-hidden="true"
+            className={`w-3 h-3 absolute right-0 pointer-events-none transition-transform duration-200 ${
+              isFocused ? "rotate-180" : "rotate-0"
+            }`}
+          />
+        </div>
+      )}
     </div>
   );
 }
