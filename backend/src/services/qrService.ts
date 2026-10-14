@@ -1,43 +1,40 @@
 import QRCode from "qrcode";
+import type { QRRequest } from "../schemas/qrSchema.js";
 
-type QRFormat = "svg" | "png";
-
-interface QRCodeResult {
+type QRCodeResult = {
   data: string | Buffer;
   contentType: string;
-}
+};
 
 export const generateQR = async (
-  url: string,
-  format: QRFormat,
+  payload: string,
+  options: Pick<QRRequest, "color" | "background" | "size" | "format">,
 ): Promise<QRCodeResult> => {
-  if (format === "svg") {
-    const svg = await QRCode.toString(url, {
+  const qrOptions = {
+    errorCorrectionLevel: "H" as const,
+    margin: 2,
+    width: options.size,
+    color: {
+      dark: options.color,
+      light: options.background,
+    },
+  };
+
+  if (options.format === "svg") {
+    const svg = await QRCode.toString(payload, {
+      ...qrOptions,
       type: "svg",
-      errorCorrectionLevel: "H",
-      margin: 2,
-      width: 300,
-      color: {
-        dark: "#4356FD",
-        light: "#FFFFFF",
-      },
     });
 
     return {
       data: svg,
-      contentType: "image/svg+xml",
+      contentType: "image/svg+xml; charset=utf-8",
     };
   }
 
-  const png = await QRCode.toBuffer(url, {
+  const png = await QRCode.toBuffer(payload, {
+    ...qrOptions,
     type: "png",
-    errorCorrectionLevel: "H",
-    margin: 2,
-    width: 300,
-    color: {
-      dark: "#4356FD",
-      light: "#FFFFFF",
-    },
   });
 
   return {

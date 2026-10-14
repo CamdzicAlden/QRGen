@@ -1,25 +1,136 @@
+import { useState } from "react";
+
 import qrExample from "../assets/images/qrExample.svg";
 import download from "../assets/icons/download.svg";
 import copy from "../assets/icons/copy.svg";
 
-function ResultCard() {
+type QRFormat = "svg" | "png";
+
+interface ResultCardProps {
+  imageUrl: string | null;
+  format: QRFormat;
+}
+
+function ResultCard({ imageUrl, format }: ResultCardProps) {
+  const [copyStatus, setCopyStatus] = useState("");
+
+  const handleCopy = async () => {
+    if (!imageUrl) {
+      setCopyStatus("Generate a QR code first.");
+      return;
+    }
+
+    try {
+      if (!navigator.clipboard?.write || typeof ClipboardItem === "undefined") {
+        throw new Error(
+          "Image clipboard access is not supported by this browser.",
+        );
+      }
+
+      // Load the generated SVG or PNG into an image element.
+      const image = new Image();
+      image.src = imageUrl;
+
+      await image.decode();
+
+      // Convert the image to PNG because clipboard image support
+      // is more widely compatible with image/png than image/svg+xml.
+      const canvas = document.createElement("canvas");
+
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+
+      const context = canvas.getContext("2d");
+
+      if (!context) {
+        throw new Error("Could not prepare the image for copying.");
+      }
+
+      context.drawImage(image, 0, 0);
+
+      const pngBlob = await new Promise<Blob>((resolve, reject) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+          } else {
+            reject(new Error("Could not convert the QR code to PNG."));
+          }
+        }, "image/png");
+      });
+
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          "image/png": pngBlob,
+        }),
+      ]);
+
+      setCopyStatus("QR code copied to clipboard.");
+    } catch (error) {
+      setCopyStatus(
+        error instanceof Error ? error.message : "Failed to copy QR code.",
+      );
+    }
+  };
+
   return (
     <div className="bg-white rounded-3xl border border-black/10 w-full h-full flex flex-col justify-center items-center gap-6 shadow-[0_2px_4px_rgba(0,0,0,0.25)] p-8">
       <p className="text-md font-jakartaBold text-black/90">Your QR Code</p>
 
-      <img src={qrExample} alt="QR Code" className="w-48 h-auto" />
+      <img
+        src={imageUrl ?? qrExample}
+        alt={imageUrl ? "Generated QR code" : "QR code example"}
+        className="w-48 h-auto"
+      />
 
       <div className="flex justify-center items-center gap-4">
-        <div className="flex justify-center items-center gap-2 bg-blue/10 px-4 py-2 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] cursor-pointer hover:bg-blue/20 transition-all ease-in-out duration-200">
-          <img src={download} alt="Download" />
-          <p className="text-sm font-jakartaSemibold text-blue/90">Download</p>
-        </div>
+        <a
+          href={imageUrl ?? undefined}
+          download={imageUrl ? `qr-code.${format}` : undefined}
+          aria-disabled={!imageUrl}
+          onClick={(event) => {
+            if (!imageUrl) {
+              event.preventDefault();
+              setCopyStatus("Generate a QR code before downloading.");
+            }
+          }}
+          className={`flex justify-center items-center gap-2 bg-blue/10 px-4 py-2 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
+            imageUrl
+              ? "cursor-pointer hover:bg-blue/20"
+              : "cursor-not-allowed opacity-50"
+          }`}
+        >
+          <img src={download} alt="" />
+          <span className="text-sm font-jakartaSemibold text-blue/90">
+            Download
+          </span>
+        </a>
 
-        <div className="flex justify-center items-center gap-2 bg-blue/10 px-4 py-2 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] cursor-pointer hover:bg-blue/20 transition-all ease-in-out duration-200">
-          <img src={copy} alt="Download" />
-          <p className="text-sm font-jakartaSemibold text-blue/90 ">Copy</p>
-        </div>
+        <button
+          type="button"
+          onClick={handleCopy}
+          disabled={!imageUrl}
+          className={`flex justify-center items-center gap-2 bg-blue/10 px-4 py-2 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
+            imageUrl
+              ? "cursor-pointer hover:bg-blue/20"
+              : "cursor-not-allowed opacity-50"
+          }`}
+        >
+          <img src={copy} alt="" />
+          <span className="text-sm font-jakartaSemibold text-blue/90">
+            Copy
+          </span>
+        </button>
       </div>
+
+      {copyStatus && (
+        <p
+          role="status"
+          aria-live="polite"
+          className="text-sm text-black/60 text-center"
+        >
+          {copyStatus}
+        </p>
+      )}
     </div>
   );
 }
