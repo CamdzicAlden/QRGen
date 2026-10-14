@@ -73,13 +73,15 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-black/10 w-full h-full flex flex-col justify-center items-center gap-6 shadow-[0_2px_4px_rgba(0,0,0,0.25)] p-8">
-      <p className="text-md font-jakartaBold text-black/90">Your QR Code</p>
+    <div className="bg-white rounded-3xl border border-black/10 w-full h-full flex flex-col justify-center items-center gap-[clamp(0.1rem,3.5vh,10rem)] shadow-[0_2px_4px_rgba(0,0,0,0.25)] p-[clamp(0.1rem,3vh,10rem)]">
+      <p className="text-[clamp(0.1rem,2.5vh,10rem)] font-jakartaBold text-black/90">
+        Your QR Code
+      </p>
 
       <img
         src={imageUrl ?? qrExample}
         alt={imageUrl ? "Generated QR code" : "QR code example"}
-        className="w-48 h-auto"
+        className="h-[clamp(0.1rem,27vh,40rem)] w-auto"
       />
 
       <div className="flex justify-center items-center gap-4">
@@ -100,7 +102,7 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
           }`}
         >
           <img src={download} alt="" />
-          <span className="text-sm font-jakartaSemibold text-blue/90">
+          <span className="text-[clamp(0.1rem,2vh,10rem)] font-jakartaSemibold text-blue/90">
             Download
           </span>
         </a>
@@ -116,7 +118,7 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
           }`}
         >
           <img src={copy} alt="" />
-          <span className="text-sm font-jakartaSemibold text-blue/90">
+          <span className="text-[clamp(0.1rem,2vh,10rem)] font-jakartaSemibold text-blue/90">
             Copy
           </span>
         </button>
@@ -126,7 +128,7 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
         <p
           role="status"
           aria-live="polite"
-          className="text-sm text-black/60 text-center"
+          className="text-[clamp(0.1rem,2vh,10rem)] text-black/60 text-center"
         >
           {copyStatus}
         </p>

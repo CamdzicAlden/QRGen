@@ -22,8 +22,8 @@ body,
 .color-picker {
   appearance: none;
   -webkit-appearance: none;
-  width: 24px;
-  height: 24px;
+  width: clamp(0.1rem, 3.5vh, 10rem);
+  height: clamp(0.1rem, 3.5vh, 10rem);
   padding: 0;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 50%;
