@@ -77,6 +77,7 @@ function ResultCard({ imageUrl, format, loading }: ResultCardProps) {
 
       setSuccess("Successfully copied QR code!");
     } catch (error) {
+      console.error(error);
       setFailure("Failed to copy QR code!");
     }
   };

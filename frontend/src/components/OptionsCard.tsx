@@ -8,11 +8,12 @@ import type {
 
 import { options, inputFields } from "../constants/optionsCard";
 import QR from "../assets/icons/QR.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DropdownCard from "./DropdownCard";
 import { generateQR } from "../../api/qrGenerator";
 import { qrRequestSchema } from "../schemas/qrSchema";
 import Loading from "./Loading";
+import Toast from "./Toast";
 
 function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
   const [selectedOption, setSelectedOption] = useState<OptionType>("URL");
@@ -103,6 +104,11 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setError(""), 3000);
+    return () => clearTimeout(timeout);
+  }, [error]);
 
   return (
     <div className="w-full h-full flex flex-col items-center gap-[clamp(0.1rem,3.6vh,10rem)] bg-white rounded-3xl border-0.5 border-black shadow-[0_2px_4px_rgba(0,0,0,0.25)] py-[clamp(0.1rem,3vh,10rem)] px-[clamp(0.1rem,4vw,10rem)] ">
@@ -210,6 +216,8 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
           </>
         )}
       </div>
+
+      {error && <Toast message={error} type="error" />}
     </div>
   );
 }
