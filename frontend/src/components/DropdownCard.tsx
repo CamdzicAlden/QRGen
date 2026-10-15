@@ -10,13 +10,15 @@ function DropdownCard({
   defaultValue,
 }: DropdownCardProps) {
   const validateColor = (color: string): void => {
-    const isValid = /^#([0-9A-F]{3}){1,2}$/i.test(color);
+    const isValid = /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/i.test(
+      color,
+    );
 
     onChange(isValid ? color : defaultValue || "#000000");
   };
 
   return (
-    <div className="bg-white border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] py-[clamp(0.1rem,1.2vh,10rem)] px-[clamp(0.1rem,1.5vw,10rem)] flex flex-col items-start gap-[clamp(0.1rem,1vh,10rem)] flex-1 min-w-0 h-full rounded-2xl">
+    <div className="bg-white border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] py-[clamp(0.1rem,1.2vh,10rem)] pl-[clamp(0.1rem,1.5vw,10rem)] flex flex-col items-start gap-[clamp(0.1rem,1vh,10rem)] flex-1 min-w-0 h-full rounded-2xl">
       {/* Card title */}
       <p className="text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold text-black/50">
         {title}
@@ -40,7 +42,7 @@ function DropdownCard({
             onBlur={(event) => validateColor(event.target.value)}
             aria-label={title}
             className="text-[clamp(0.1rem,2vh,10rem)] text-black/50 w-full border-none outline-none p-0 bg-transparent"
-            maxLength={7}
+            maxLength={9}
           />
         </div>
       )}
@@ -65,7 +67,7 @@ function DropdownCard({
             src={dropdown}
             alt=""
             aria-hidden="true"
-            className={`h-[clamp(0.1rem,2vh,10rem)] w-auto absolute right-0`}
+            className={`h-[clamp(0.1rem,2vh,10rem)] w-auto absolute right-3`}
           />
         </div>
       )}

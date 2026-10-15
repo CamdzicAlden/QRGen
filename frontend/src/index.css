@@ -47,3 +47,16 @@ body,
   border: none;
   border-radius: 50%;
 }
+
+@keyframes slideInRight {
+  from {
+    right: -50%;
+  }
+  to {
+    right: 4;
+  }
+}
+
+@utility animate-slideInRight {
+  animation: slideInRight 0.7s ease-in-out;
+}

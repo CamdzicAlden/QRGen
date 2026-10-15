@@ -13,6 +13,8 @@ export type InputField = {
 
 export interface OptionsCardProps {
   onQRGenerated: (imageUrl: string, format: QRFormat) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 }
 
 export type QRInputValues = {

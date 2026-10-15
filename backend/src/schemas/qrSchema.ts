@@ -4,7 +4,10 @@ const qrFormatSchema = z.enum(["svg", "png"]);
 
 const colorSchema = z
   .string()
-  .regex(/^#[0-9a-fA-F]{8}$/, "Color must be a valid hex color");
+  .regex(
+    /^#(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})$/,
+    "Color must be a valid hex color",
+  );
 
 const sizeSchema = z
   .number()

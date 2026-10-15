@@ -1,17 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import qrExample from "../assets/images/qrExample.svg";
 import download from "../assets/icons/download.svg";
 import copy from "../assets/icons/copy.svg";
 
 import type { ResultCardProps } from "../types/resultCard";
+import Loading from "./Loading";
+import Toast from "./Toast";
 
-function ResultCard({ imageUrl, format }: ResultCardProps) {
-  const [copyStatus, setCopyStatus] = useState("");
+function ResultCard({ imageUrl, format, loading }: ResultCardProps) {
+  const [success, setSuccess] = useState("");
+  const [failure, setFailure] = useState("");
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setSuccess(""), 3000);
+    return () => clearTimeout(timeout);
+  }, [success]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setFailure(""), 3000);
+    return () => clearTimeout(timeout);
+  }, [failure]);
 
   const handleCopy = async () => {
+    setSuccess("");
+    setFailure("");
+
     if (!imageUrl) {
-      setCopyStatus("Generate a QR code first.");
+      setFailure("Generate a QR code first.");
       return;
     }
 
@@ -59,11 +75,9 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
         }),
       ]);
 
-      setCopyStatus("QR code copied to clipboard.");
+      setSuccess("Successfully copied QR code!");
     } catch (error) {
-      setCopyStatus(
-        error instanceof Error ? error.message : "Failed to copy QR code.",
-      );
+      setFailure("Failed to copy QR code!");
     }
   };
 
@@ -73,11 +87,17 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
         Your QR Code
       </p>
 
-      <img
-        src={imageUrl ?? qrExample}
-        alt={imageUrl ? "Generated QR code" : "QR code example"}
-        className="h-[clamp(0.1rem,27vh,40rem)] w-auto"
-      />
+      <div className="h-[clamp(0.1rem,27vh,40rem)] w-auto flex justify-center items-center">
+        {loading ? (
+          <Loading height="clamp(0.1rem, 4vh, 5rem)" />
+        ) : (
+          <img
+            src={imageUrl ?? qrExample}
+            alt={imageUrl ? "Generated QR code" : "QR code example"}
+            className="h-full w-auto object-contain"
+          />
+        )}
+      </div>
 
       <div className="flex justify-center items-center gap-[clamp(0.1rem,2vh,10rem)]">
         <a
@@ -87,7 +107,6 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
           onClick={(event) => {
             if (!imageUrl) {
               event.preventDefault();
-              setCopyStatus("Generate a QR code before downloading.");
             }
           }}
           className={`flex justify-center items-center gap-[clamp(0.1rem,1vh,10rem)] bg-blue/10 w-[clamp(0.1rem,9vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
@@ -119,15 +138,8 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
         </button>
       </div>
 
-      {copyStatus && (
-        <p
-          role="status"
-          aria-live="polite"
-          className="text-[clamp(0.1rem,2vh,10rem)] text-black/60 text-center"
-        >
-          {copyStatus}
-        </p>
-      )}
+      {success && <Toast message={success} type="success" />}
+      {failure && <Toast message={failure} type="error" />}
     </div>
   );
 }

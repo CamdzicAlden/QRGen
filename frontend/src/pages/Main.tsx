@@ -11,6 +11,7 @@ import type { QRFormat } from "../types/shared";
 function Main() {
   const [qrImageUrl, setQrImageUrl] = useState<string | null>(null);
   const [qrFormat, setQrFormat] = useState<QRFormat>("svg");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -38,9 +39,13 @@ function Main() {
           className="w-[70%] h-auto object-contain"
         />
 
-        <OptionsCard onQRGenerated={handleQRGenerated} />
+        <OptionsCard
+          onQRGenerated={handleQRGenerated}
+          loading={loading}
+          setLoading={setLoading}
+        />
 
-        <ResultCard imageUrl={qrImageUrl} format={qrFormat} />
+        <ResultCard imageUrl={qrImageUrl} format={qrFormat} loading={loading} />
       </div>
     </div>
   );
