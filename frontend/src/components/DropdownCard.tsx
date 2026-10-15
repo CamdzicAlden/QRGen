@@ -1,14 +1,5 @@
-import { useState } from "react";
 import dropdown from "../assets/icons/dropdown.svg";
-
-type DropdownCardProps = {
-  title: string;
-  type: "color" | "select";
-  value: string;
-  onChange: (value: string) => void;
-  options?: string[];
-  defaultValue?: string;
-};
+import type { DropdownCardProps } from "../types/dropdownCard";
 
 function DropdownCard({
   title,
@@ -24,10 +15,8 @@ function DropdownCard({
     onChange(isValid ? color : defaultValue || "#000000");
   };
 
-  const [isFocused, setIsFocused] = useState(false);
-
   return (
-    <div className="bg-white border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] py-[clamp(0.1rem,1.2vh,10rem)] px-[clamp(0.1rem,2.5vh,10rem)] flex flex-col items-start gap-[clamp(0.1rem,1vh,10rem)] flex-1 min-w-0 h-full rounded-2xl">
+    <div className="bg-white border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] py-[clamp(0.1rem,1.2vh,10rem)] px-[clamp(0.1rem,1.5vw,10rem)] flex flex-col items-start gap-[clamp(0.1rem,1vh,10rem)] flex-1 min-w-0 h-full rounded-2xl">
       {/* Card title */}
       <p className="text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold text-black/50">
         {title}
@@ -62,10 +51,8 @@ function DropdownCard({
           <select
             value={value}
             onChange={(event) => onChange(event.target.value)}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
             aria-label={title}
-            className="w-full appearance-none bg-transparent pr-6 outline-none cursor-pointer text-[clamp(0.1rem,2vh,10rem)] font-jakartaSemibold text-black/80"
+            className="w-full appearance-none bg-transparent pr-[clamp(0.1rem,1.5vw,10rem)] outline-none cursor-pointer text-[clamp(0.1rem,2vh,10rem)] font-jakartaSemibold text-black/80"
           >
             {options.map((option) => (
               <option key={option} value={option}>
@@ -78,9 +65,7 @@ function DropdownCard({
             src={dropdown}
             alt=""
             aria-hidden="true"
-            className={`w-3 h-3 absolute right-0 pointer-events-none transition-transform duration-200 ${
-              isFocused ? "rotate-180" : "rotate-0"
-            }`}
+            className={`h-[clamp(0.1rem,2vh,10rem)] w-auto absolute right-0`}
           />
         </div>
       )}

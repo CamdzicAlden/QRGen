@@ -1,6 +1,7 @@
+import type { QRFormat } from "../types/shared";
+
 import type {
   OptionType,
-  QRFormat,
   OptionsCardProps,
   QRInputValues,
 } from "../types/optionsCard";
@@ -67,7 +68,6 @@ function OptionsCard({ onQRGenerated }: OptionsCardProps) {
       const imageUrl = URL.createObjectURL(blob);
 
       onQRGenerated(imageUrl, selectedFormat);
-      console.log("QR code generated successfully");
     } catch (error) {
       setError(
         error instanceof Error ? error.message : "Failed to generate QR code",
@@ -78,13 +78,13 @@ function OptionsCard({ onQRGenerated }: OptionsCardProps) {
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center gap-[clamp(0.1rem,3.5vh,10rem)] bg-white rounded-3xl border-0.5 border-black shadow-[0_2px_4px_rgba(0,0,0,0.25)] py-[clamp(0.1rem,3vh,10rem)]  px-[clamp(0.1rem,7vh,10rem)] ">
+    <div className="w-full h-full flex flex-col items-center gap-[clamp(0.1rem,3.6vh,10rem)] bg-white rounded-3xl border-0.5 border-black shadow-[0_2px_4px_rgba(0,0,0,0.25)] py-[clamp(0.1rem,3vh,10rem)] px-[clamp(0.1rem,4vw,10rem)] ">
       {/* Options container */}
       <div className="w-full flex justify-start items-center gap-[clamp(0.1rem,2vh,10rem)] ">
         {Object.entries(options).map(([option, { icon, iconSelected }]) => (
           <div
             key={option}
-            className={`flex justify-center items-center gap-[clamp(0.1rem,1.5vh,10rem)] px-[clamp(0.1rem,2.5vh,10rem)]  py-[clamp(0.1rem,1.3vh,10rem)] rounded-lg cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.1)] text-[clamp(0.1rem,2vh,10rem)] font-jakartaSemibold ${selectedOption === option ? "bg-blue/10 text-blue/80" : "bg-white/80 text-black/80"} hover:bg-blue/10 transition-all ease-in-out duration-75`}
+            className={`flex justify-center items-center gap-[clamp(0.1rem,1.5vh,10rem)] px-[clamp(0.1rem,2vw,10rem)] py-[clamp(0.1rem,1.3vh,10rem)] rounded-lg cursor-pointer shadow-[0_1px_2px_rgba(0,0,0,0.1)] text-[clamp(0.1rem,2vh,10rem)] font-jakartaSemibold ${selectedOption === option ? "bg-blue/10 text-blue/80" : "bg-white/80 text-black/80"} hover:bg-blue/10 transition-all ease-in-out duration-75`}
             onClick={() => setSelectedOption(option as OptionType)}
           >
             <img
@@ -101,16 +101,16 @@ function OptionsCard({ onQRGenerated }: OptionsCardProps) {
       <div className="w-full flex flex-col items-start text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold gap-[clamp(0.1rem,1.5vh,10rem)]">
         <p>Enter your {selectedOption}</p>
 
-        <div className="w-full flex items-center gap-4">
+        <div className="w-full flex items-center gap-[clamp(0.1rem,2vh,10rem)]">
           {inputFields[selectedOption].map((field) => (
             <div
               key={field.name}
-              className="flex-1 min-w-0 flex justify-start items-center px-4 py-[clamp(0.1rem,1.5vh,10rem)] border border-black/20 rounded-lg gap-4"
+              className="flex-1 min-w-0 flex justify-start items-center px-[clamp(0.1rem,1.5vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] border border-black/20 rounded-lg gap-[clamp(0.1rem,2vh,10rem)]"
             >
               <img
                 src={field.icon}
                 alt={""}
-                className="h-4 opacity-50 shrink-0"
+                className="h-[clamp(0.1rem,2.3vh,10rem)] opacity-50 shrink-0"
               />
 
               <input
@@ -119,7 +119,7 @@ function OptionsCard({ onQRGenerated }: OptionsCardProps) {
                 placeholder={field.placeholder}
                 required={field.required}
                 onChange={handleChange}
-                value={formData[field.name as keyof QRInputValues]}
+                value={formData[field.name]}
                 className="font-jakartaSemibold border-none outline-none flex-1 min-w-0 text-black/80"
               />
             </div>
@@ -131,7 +131,7 @@ function OptionsCard({ onQRGenerated }: OptionsCardProps) {
       <div className="w-full flex flex-col items-start text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold gap-[clamp(0.1rem,1.5vh,10rem)]">
         <p>Customize</p>
 
-        <div className="w-full h-full flex justify-between items-center gap-4">
+        <div className="w-full h-full flex justify-between items-center gap-[clamp(0.1rem,2vh,10rem)]">
           <DropdownCard
             title="Color"
             type="color"
@@ -168,7 +168,7 @@ function OptionsCard({ onQRGenerated }: OptionsCardProps) {
 
       {/* Button container */}
       <div
-        className={`w-full flex justify-center items-center bg-blue text-white/90 font-jakartaBold text-[clamp(0.1rem,2.2vh,10rem)] gap-1 py-2 rounded-lg cursor-pointer hover:bg-blue/90 transition-all ease-in-out duration-200`}
+        className={`w-full flex justify-center items-center bg-blue text-white/90 font-jakartaBold text-[clamp(0.1rem,2.2vh,10rem)] gap-[clamp(0.1rem,0.7vh,10rem)] py-[clamp(0.1rem,1.2vh,10rem)] rounded-lg cursor-pointer hover:bg-blue/90 transition-all ease-in-out duration-200`}
         onClick={handleSubmit}
       >
         <img src={QR} alt="QR" className="h-[clamp(0.1rem,2.5vh,10rem)]" />

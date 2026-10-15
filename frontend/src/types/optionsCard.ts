@@ -1,16 +1,15 @@
 import { options } from "../constants/optionsCard";
+import type { QRFormat } from "./shared";
 
 export type OptionType = keyof typeof options;
 
 export type InputField = {
-  name: string;
+  name: keyof QRInputValues;
   placeholder: string;
   icon: string;
   type?: "text" | "email" | "tel";
   required: boolean;
 };
-
-export type QRFormat = "svg" | "png";
 
 export interface OptionsCardProps {
   onQRGenerated: (imageUrl: string, format: QRFormat) => void;

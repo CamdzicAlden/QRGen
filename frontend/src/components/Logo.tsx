@@ -2,7 +2,7 @@ import logo from "../assets/icons/logo.svg";
 
 function Logo() {
   return (
-    <div className="w-full flex justify-start items-center gap-[clamp(0.1rem,1vh,10rem)]  text-[clamp(0.1rem,3vh,10rem)] font-jakartaBold text-black/80">
+    <div className="w-full flex justify-start items-center gap-[clamp(0.1rem,1vh,10rem)] text-[clamp(0.1rem,3vh,10rem)] font-jakartaBold text-black/80">
       <img
         src={logo}
         alt="logo"

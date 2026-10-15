@@ -4,7 +4,7 @@ const qrFormatSchema = z.enum(["svg", "png"]);
 
 const colorSchema = z
   .string()
-  .regex(/^#[0-9a-fA-F]{6}$/, "Color must be a valid hex color");
+  .regex(/^#[0-9a-fA-F]{8}$/, "Color must be a valid hex color");
 
 const sizeSchema = z
   .number()
@@ -104,4 +104,3 @@ export const qrRequestSchema = z.discriminatedUnion("type", [
 ]);
 
 export type QRRequest = z.output<typeof qrRequestSchema>;
-export type QRRequestInput = z.input<typeof qrRequestSchema>;

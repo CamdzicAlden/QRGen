@@ -4,12 +4,7 @@ import qrExample from "../assets/images/qrExample.svg";
 import download from "../assets/icons/download.svg";
 import copy from "../assets/icons/copy.svg";
 
-type QRFormat = "svg" | "png";
-
-interface ResultCardProps {
-  imageUrl: string | null;
-  format: QRFormat;
-}
+import type { ResultCardProps } from "../types/resultCard";
 
 function ResultCard({ imageUrl, format }: ResultCardProps) {
   const [copyStatus, setCopyStatus] = useState("");
@@ -84,7 +79,7 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
         className="h-[clamp(0.1rem,27vh,40rem)] w-auto"
       />
 
-      <div className="flex justify-center items-center gap-4">
+      <div className="flex justify-center items-center gap-[clamp(0.1rem,2vh,10rem)]">
         <a
           href={imageUrl ?? undefined}
           download={imageUrl ? `qr-code.${format}` : undefined}
@@ -95,7 +90,7 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
               setCopyStatus("Generate a QR code before downloading.");
             }
           }}
-          className={`flex justify-center items-center gap-2 bg-blue/10 px-4 py-2 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
+          className={`flex justify-center items-center gap-[clamp(0.1rem,1vh,10rem)] bg-blue/10 w-[clamp(0.1rem,9vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
             imageUrl
               ? "cursor-pointer hover:bg-blue/20"
               : "cursor-not-allowed opacity-50"
@@ -111,7 +106,7 @@ function ResultCard({ imageUrl, format }: ResultCardProps) {
           type="button"
           onClick={handleCopy}
           disabled={!imageUrl}
-          className={`flex justify-center items-center gap-2 bg-blue/10 px-4 py-2 rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
+          className={`flex justify-center items-center gap-[clamp(0.1rem,1vh,10rem)] bg-blue/10 w-[clamp(0.1rem,9vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
             imageUrl
               ? "cursor-pointer hover:bg-blue/20"
               : "cursor-not-allowed opacity-50"
