@@ -24,7 +24,7 @@ export async function generateQR(formData: QRFormData): Promise<Blob> {
     throw new Error("VITE_API_URL is not configured");
   }
 
-  const response = await fetch(`${API}/api/qr`, {
+  const response = await fetch(`${API}api/qr`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
