@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import qrExample from "../assets/images/qrExample.svg";
+import qrExample from "../assets/images/QRGen.svg";
 import download from "../assets/icons/download.svg";
 import copy from "../assets/icons/copy.svg";
 
