@@ -18,7 +18,7 @@ function DropdownCard({
   };
 
   return (
-    <div className="bg-white border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] py-[clamp(0.1rem,1.2vh,10rem)] pl-[clamp(0.1rem,1.5vw,10rem)] flex flex-col items-start gap-[clamp(0.1rem,1vh,10rem)] flex-1 min-w-0 h-full rounded-2xl">
+    <div className="w-full bg-white border border-black/10 shadow-[0_1px_2px_rgba(0,0,0,0.1)] py-[clamp(0.1rem,1.2vh,10rem)] pl-[clamp(1rem,1.5vw,10rem)] flex flex-col items-start gap-[clamp(0.1rem,1vh,10rem)] flex-1 min-w-0 h-full rounded-2xl">
       {/* Card title */}
       <p className="text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold text-black/50">
         {title}

@@ -27,10 +27,10 @@ function Main() {
   };
 
   return (
-    <div className="w-full h-dvh box-border pt-[clamp(0.1rem,4vh,10rem)] pb-[clamp(0.1rem,2vh,10rem)] px-[clamp(0.1rem,5vw,10rem)] flex flex-col items-center gap-[clamp(0.1rem,4vh,10rem)] ">
+    <div className="w-dvw h-auto lg:h-dvh box-border pt-[clamp(0.1rem,4vh,10rem)] pb-[clamp(0.1rem,2vh,10rem)] px-[clamp(0.1rem,4vw,10rem)] lg:px-[clamp(0.1rem,5vw,10rem)] flex flex-col items-center gap-[clamp(0.1rem,15vh,10rem)] lg:gap-[clamp(0.1rem,4vh,10rem)] ">
       <Logo />
 
-      <div className="w-full flex-1 min-h-0 grid grid-cols-[2fr_1fr] grid-rows-[1fr_2fr] place-items-center gap-[clamp(0.1rem,4vh,10rem)] ">
+      <div className="w-full max-w-dvw flex-1 min-h-0 grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-[2fr_1fr] sm:grid-rows-4 lg:grid-rows-[1fr_2fr] place-items-center gap-[clamp(0.1rem,10vh,20rem)] md:gap-[clamp(0.1rem,10vh,10rem)] lg:gap-[clamp(0.1rem,4vh,10rem)]">
         <AboutText />
 
         <img

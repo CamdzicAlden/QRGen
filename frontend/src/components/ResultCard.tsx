@@ -83,12 +83,12 @@ function ResultCard({ imageUrl, format, loading }: ResultCardProps) {
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-black/10 w-full h-full flex flex-col justify-center items-center gap-[clamp(0.1rem,3.5vh,10rem)] shadow-[0_2px_4px_rgba(0,0,0,0.25)] p-[clamp(0.1rem,3vh,10rem)]">
+    <div className="bg-white rounded-3xl border border-black/10 w-full h-full flex flex-col justify-center items-center gap-[clamp(0.1rem,5vh,10rem)] lg:gap-[clamp(0.1rem,3.5vh,10rem)] shadow-[0_2px_4px_rgba(0,0,0,0.25)] p-[clamp(0.1rem,3vh,10rem)]">
       <p className="text-[clamp(0.1rem,2.5vh,10rem)] font-jakartaBold text-black/90">
         Your QR Code
       </p>
 
-      <div className="h-[clamp(0.1rem,27vh,40rem)] w-auto flex justify-center items-center">
+      <div className="h-[clamp(0.1rem,25vh,40rem)] lg:h-[clamp(0.1rem,27vh,40rem)] w-auto flex justify-center items-center">
         {loading ? (
           <Loading height="clamp(0.1rem, 4vh, 5rem)" />
         ) : (
@@ -110,7 +110,7 @@ function ResultCard({ imageUrl, format, loading }: ResultCardProps) {
               event.preventDefault();
             }
           }}
-          className={`flex justify-center items-center gap-[clamp(0.1rem,1vh,10rem)] bg-blue/10 w-[clamp(0.1rem,9vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
+          className={`flex justify-center items-center gap-[clamp(0.1rem,1vh,10rem)] bg-blue/10 w-[clamp(0.1rem,35vw,20rem)] lg:w-[clamp(0.1rem,9vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
             imageUrl
               ? "cursor-pointer hover:bg-blue/20"
               : "cursor-not-allowed opacity-50"
@@ -126,7 +126,7 @@ function ResultCard({ imageUrl, format, loading }: ResultCardProps) {
           type="button"
           onClick={handleCopy}
           disabled={!imageUrl}
-          className={`flex justify-center items-center gap-[clamp(0.1rem,1vh,10rem)] bg-blue/10 w-[clamp(0.1rem,9vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
+          className={`flex justify-center items-center gap-[clamp(0.1rem,1vh,10rem)] bg-blue/10 w-[clamp(0.1rem,35vw,20rem)] lg:w-[clamp(0.1rem,9vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] rounded-xl shadow-[0_1px_2px_rgba(0,0,0,0.1)] transition-all duration-200 ${
             imageUrl
               ? "cursor-pointer hover:bg-blue/20"
               : "cursor-not-allowed opacity-50"

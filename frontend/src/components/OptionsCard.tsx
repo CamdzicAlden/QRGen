@@ -36,6 +36,18 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
     (value) => value.trim() !== "",
   );
 
+  const resetFormData = () => {
+    setFormData({
+      url: "",
+      text: "",
+      ssid: "",
+      password: "",
+      email: "",
+      phone: "",
+      message: "",
+    });
+  };
+
   const [error, setError] = useState("");
   const [inputError, setInputError] = useState("");
 
@@ -79,15 +91,7 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
 
       if (!validation.success) {
         setInputError(validation.error.issues[0]?.message ?? "Invalid input");
-        setFormData({
-          url: "",
-          text: "",
-          ssid: "",
-          password: "",
-          email: "",
-          phone: "",
-          message: "",
-        });
+        resetFormData();
         return;
       }
 
@@ -111,9 +115,9 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
   }, [error]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center gap-[clamp(0.1rem,3.6vh,10rem)] bg-white rounded-3xl border-0.5 border-black shadow-[0_2px_4px_rgba(0,0,0,0.25)] py-[clamp(0.1rem,3vh,10rem)] px-[clamp(0.1rem,4vw,10rem)] ">
+    <div className="w-full max-w-dvw h-full flex flex-col items-center gap-[clamp(0.1rem,3.6vh,10rem)] bg-white rounded-3xl border-0.5 border-black shadow-[0_2px_4px_rgba(0,0,0,0.25)] py-[clamp(0.1rem,5vh,10rem)] lg:py-[clamp(0.1rem,3vh,10rem)] px-[clamp(0.1rem,6vw,10rem)] lg:px-[clamp(0.1rem,4vw,10rem)]">
       {/* Options container */}
-      <div className="w-full flex justify-start items-center gap-[clamp(0.1rem,2vh,10rem)] ">
+      <div className="w-full grid grid-cols-3 lg:flex lg:justify-start lg:items-center gap-[clamp(0.1rem,2vh,10rem)] ">
         {Object.entries(options).map(([option, { icon, iconSelected }]) => (
           <div
             key={option}
@@ -121,6 +125,7 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
             onClick={() => {
               setSelectedOption(option as OptionType);
               setInputError("");
+              resetFormData();
             }}
           >
             <img
@@ -137,11 +142,11 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
       <div className="w-full flex flex-col items-start text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold gap-[clamp(0.1rem,1.5vh,10rem)]">
         <p>Enter your {selectedOption}</p>
 
-        <div className="w-full flex items-center gap-[clamp(0.1rem,2vh,10rem)]">
+        <div className="w-full flex items-center gap-[clamp(0.1rem,2vw,10rem)] lg:gap-[clamp(0.1rem,2vh,10rem)]">
           {inputFields[selectedOption].map((field) => (
             <div
               key={field.name}
-              className={`flex-1 min-w-0 flex justify-start items-center px-[clamp(0.1rem,1.5vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] border ${inputError ? "border-red-500" : "border-black/20"} rounded-lg gap-[clamp(0.1rem,2vh,10rem)]`}
+              className={`flex-1 min-w-0 flex justify-start items-center px-[clamp(0.1rem,3vw,10rem)] lg:px-[clamp(0.1rem,1.5vw,10rem)] py-[clamp(0.1rem,1.5vh,10rem)] border ${inputError ? "border-red-500" : "border-black/20"} rounded-lg gap-[clamp(0.1rem,2.5vw,10rem)] lg:gap-[clamp(0.1rem,2vh,10rem)]`}
             >
               <img
                 src={field.icon}
@@ -167,7 +172,7 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
       <div className="w-full flex flex-col items-start text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold gap-[clamp(0.1rem,1.5vh,10rem)]">
         <p>Customize</p>
 
-        <div className="w-full h-full flex justify-between items-center gap-[clamp(0.1rem,2vh,10rem)]">
+        <div className="w-full h-full grid grid-cols-2 place-items-center lg:flex lg:justify-between lg:items-center gap-[clamp(0.1rem,2vh,10rem)]">
           <DropdownCard
             title="Color"
             type="color"
