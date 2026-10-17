@@ -139,7 +139,7 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
       </div>
 
       {/* Inputs container */}
-      <div className="w-full flex flex-col items-start text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold gap-[clamp(0.1rem,1.5vh,10rem)]">
+      <div className="w-full max-w-dvw flex flex-col items-start text-[clamp(0.1rem,2vh,10rem)] font-jakartaBold gap-[clamp(0.1rem,1.5vh,10rem)]">
         <p>Enter your {selectedOption}</p>
 
         <div className="w-full flex items-center gap-[clamp(0.1rem,2vw,10rem)] lg:gap-[clamp(0.1rem,2vh,10rem)]">
@@ -161,7 +161,7 @@ function OptionsCard({ onQRGenerated, loading, setLoading }: OptionsCardProps) {
                 required={field.required}
                 onChange={handleChange}
                 value={formData[field.name]}
-                className={`font-jakartaSemibold border-none outline-none flex-1 min-w-0 ${inputError ? "text-red-500" : "text-black/80"}`}
+                className={`w-full font-jakartaSemibold border-none outline-none flex-1 min-w-0 ${inputError ? "text-red-500" : "text-black/80"}`}
               />
             </div>
           ))}

@@ -41,7 +41,7 @@ function DropdownCard({
             onChange={(event) => onChange(event.target.value)}
             onBlur={(event) => validateColor(event.target.value)}
             aria-label={title}
-            className="text-[clamp(0.1rem,2vh,10rem)] text-black/50 w-full border-none outline-none p-0 bg-transparent"
+            className="text-[clamp(0.1rem,1.8vh,10rem)] text-black/50 w-full border-none outline-none p-0 bg-transparent"
             maxLength={9}
           />
         </div>
@@ -54,7 +54,7 @@ function DropdownCard({
             value={value}
             onChange={(event) => onChange(event.target.value)}
             aria-label={title}
-            className="w-full appearance-none bg-transparent pr-[clamp(0.1rem,1.5vw,10rem)] outline-none cursor-pointer text-[clamp(0.1rem,2vh,10rem)] font-jakartaSemibold text-black/80"
+            className="w-full appearance-none bg-transparent pr-[clamp(0.1rem,1.5vw,10rem)] outline-none cursor-pointer text-[clamp(0.1rem,1.8vh,10rem)] font-jakartaSemibold text-black/80"
           >
             {options.map((option) => (
               <option key={option} value={option}>
